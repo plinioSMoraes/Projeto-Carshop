@@ -27,6 +27,12 @@ class CarsServices {
     const car = await model.findById(id);
     return car;
   }
+
+  public async update(id: string, car: ICar) {
+    const model = new CarsModels();
+    const updatedCar = await model.update(car, id);
+    return updatedCar;
+  }
 }
 
 export default CarsServices;

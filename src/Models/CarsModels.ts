@@ -50,6 +50,11 @@ class CarsModels {
     });
     return car;
   }
+  public async update(car: ICar, id: string): Promise<ICar | null> {
+    const updatedCar = await this.model.findByIdAndUpdate({ _id: id }, { ...car }, { new: true })
+      .lean();
+    return updatedCar;
+  }
 }
   
 export default CarsModels;

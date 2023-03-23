@@ -42,10 +42,16 @@ class CarsControllers {
   }
 
   public async findById(id: string) {
-    console.log(id);
     const car = await this.service.findById(id);
     if (!car) return this.res.status(404).json({ message: 'Car not found' });
     return this.res.status(200).json(car);
+  }
+
+  public async update(id: string, car: ICar) {
+    const updatedCar = await this.service.update(id, car);
+    if (!updatedCar) return this.res.status(404).json({ message: 'Car not found' });
+    if (!updatedCar.status) updatedCar.status = false;
+    return this.res.status(200).json({ id, ...updatedCar });
   }
 }
 

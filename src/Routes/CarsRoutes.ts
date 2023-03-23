@@ -14,5 +14,10 @@ carsRoutes.get(
     .findById(req.params.id),
 );
 carsRoutes.get('/cars', (req, res, next) => new CarsControllers(req, res, next).findAll());
+carsRoutes.put(
+  '/cars/:id', 
+  (req, res, next) => isValidId(req, res, next),
+  (req, res, next) => new CarsControllers(req, res, next).update(req.params.id, req.body),
+);
 
 export default carsRoutes;
