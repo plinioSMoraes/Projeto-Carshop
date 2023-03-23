@@ -35,6 +35,18 @@ class CarsControllers {
       this.next(error);
     }
   }
+
+  public async findAll() {
+    const allCars = await this.service.findAll();
+    return this.res.status(200).json(allCars);
+  }
+
+  public async findById(id: string) {
+    console.log(id);
+    const car = await this.service.findById(id);
+    if (!car) return this.res.status(404).json({ message: 'Car not found' });
+    return this.res.status(200).json(car);
+  }
 }
 
 export default CarsControllers;

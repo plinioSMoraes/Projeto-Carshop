@@ -21,6 +21,35 @@ class CarsModels {
   public async create(car: ICar): Promise<ICar> {
     return this.model.create({ ...car });
   }
+
+  public async findAll() {
+    const allCars = await this.model.find().select(
+      {
+        id: '$_id', 
+        model: '$model',
+        year: '$year',
+        color: '$color',
+        status: '$status',
+        buyValue: '$buyValue',
+        doorsQty: '$doorsQty',
+        seatsQty: '$seatsQty',
+      },
+    );
+    return allCars;
+  }
+  public async findById(id: string) {
+    const car = await this.model.findById(id).select({
+      id: '$_id', 
+      model: '$model',
+      year: '$year',
+      color: '$color',
+      status: '$status',
+      buyValue: '$buyValue',
+      doorsQty: '$doorsQty',
+      seatsQty: '$seatsQty',
+    });
+    return car;
+  }
 }
   
 export default CarsModels;
