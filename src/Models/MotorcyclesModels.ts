@@ -56,6 +56,12 @@ class MotorcyclesModels extends AbstractODM<IMotorcycle> {
       .lean();
     return updatedMotorcycle;
   }
+
+  public async delete(_id: string) {
+    const deletedMotorcycle = await this.model
+      .findByIdAndDelete({ _id });
+    return deletedMotorcycle;
+  }
 }
   
 export default MotorcyclesModels;

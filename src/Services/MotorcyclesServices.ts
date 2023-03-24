@@ -33,6 +33,12 @@ class MotorcyclesServices {
     const updatedCar = await model.update(id, mCycle);
     return updatedCar;
   }
+
+  public async delete(id: string) {
+    const model = new MotorcyclesModels();
+    const deletedMotorcycle = await model.delete(id);
+    return deletedMotorcycle;
+  }
 }
 
 export default MotorcyclesServices;

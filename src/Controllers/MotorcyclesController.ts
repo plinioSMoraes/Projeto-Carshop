@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from 'express';
 import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcyclesServices from '../Services/MotorcyclesServices';
 
+const statusErrors = 'Motorcycle not found';
+
 class MotorcyclesControllers {
   private req: Request;
   private res: Response;
@@ -38,21 +40,30 @@ class MotorcyclesControllers {
 
   public async findAll() {
     const allMotorCycles = await this.service.findAll();
-    if (allMotorCycles.length === 0) return this.res.status(404).json({ message: 'Not found' });
+    if (allMotorCycles.length === 0) {
+      return this.res.status(404)
+        .json({ message: 'Empty Database' });
+    }
     return this.res.status(200).json(allMotorCycles);
   }
 
   public async findById(id: string) {
     const mCycle = await this.service.findById(id);
-    if (!mCycle) return this.res.status(404).json({ message: 'Motorcycle not found' });
+    if (!mCycle) return this.res.status(404).json({ message: statusErrors });
     return this.res.status(200).json(mCycle);
   }
 
   public async update(id: string, mCycle: IMotorcycle) {
     const updatedMotorcycle = await this.service.update(id, mCycle);
-    if (!updatedMotorcycle) return this.res.status(404).json({ message: 'Motorcycle not found' });
+    if (!updatedMotorcycle) return this.res.status(404).json({ message: statusErrors });
     if (!updatedMotorcycle.status) updatedMotorcycle.status = false;
     return this.res.status(200).json({ id, ...updatedMotorcycle });
+  }
+
+  public async delete(id: string) {
+    const updatedMotorcycle = await this.service.delete(id);
+    if (!updatedMotorcycle) return this.res.status(404).json({ message: statusErrors });
+    return this.res.status(204).end();
   }
 }
 
