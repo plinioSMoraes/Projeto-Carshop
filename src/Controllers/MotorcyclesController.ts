@@ -38,11 +38,13 @@ class MotorcyclesControllers {
 
   public async findAll() {
     const allMotorCycles = await this.service.findAll();
+    if (allMotorCycles.length === 0) return this.res.status(404).json({ message: 'Not found' });
     return this.res.status(200).json(allMotorCycles);
   }
 
   public async findById(id: string) {
     const mCycle = await this.service.findById(id);
+    if (!mCycle) return this.res.status(404).json({ message: 'Motorcycle not found' });
     return this.res.status(200).json(mCycle);
   }
 }

@@ -21,12 +21,32 @@ class MotorcyclesModels extends AbstractODM<IMotorcycle> {
   }
 
   public async findAll() {
-    const allMotorCycles = await this.model.find();
-    return allMotorCycles;
+    const allMotorcycles = await this.model.find().select(
+      {
+        id: '$_id', 
+        model: '$model',
+        year: '$year',
+        color: '$color',
+        status: '$status',
+        buyValue: '$buyValue',
+        category: '$category',
+        engineCapacity: '$engineCapacity',
+      },
+    );
+    return allMotorcycles;
   }
 
   public async findById(id: string) {
-    const mCycle = await this.model.findById({ _id: id });
+    const mCycle = await this.model.findById(id).select({
+      id: '$_id', 
+      model: '$model',
+      year: '$year',
+      color: '$color',
+      status: '$status',
+      buyValue: '$buyValue',
+      category: '$category',
+      engineCapacity: '$engineCapacity',
+    });
     return mCycle;
   }
 }
