@@ -53,6 +53,12 @@ class CarsModels extends AbstractODM<ICar> {
       .lean();
     return updatedCar;
   }
+
+  public async delete(_id: string) {
+    const deletedCar = await this.model
+      .findByIdAndDelete({ _id });
+    return deletedCar;
+  }
 }
   
 export default CarsModels;

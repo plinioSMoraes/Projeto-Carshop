@@ -61,8 +61,8 @@ class MotorcyclesControllers {
   }
 
   public async delete(id: string) {
-    const updatedMotorcycle = await this.service.delete(id);
-    if (!updatedMotorcycle) return this.res.status(404).json({ message: statusErrors });
+    const deletedMotorcycle = await this.service.delete(id);
+    if (!deletedMotorcycle) return this.res.status(404).json({ message: statusErrors });
     return this.res.status(204).end();
   }
 }
