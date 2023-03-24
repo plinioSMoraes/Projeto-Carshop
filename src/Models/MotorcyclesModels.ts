@@ -49,6 +49,13 @@ class MotorcyclesModels extends AbstractODM<IMotorcycle> {
     });
     return mCycle;
   }
+
+  public async update(_id: string, mCycle: IMotorcycle): Promise<IMotorcycle | null> {
+    const updatedMotorcycle = await this.model
+      .findByIdAndUpdate({ _id }, { ...mCycle }, { new: true })
+      .lean();
+    return updatedMotorcycle;
+  }
 }
   
 export default MotorcyclesModels;

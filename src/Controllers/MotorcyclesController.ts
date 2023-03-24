@@ -47,6 +47,13 @@ class MotorcyclesControllers {
     if (!mCycle) return this.res.status(404).json({ message: 'Motorcycle not found' });
     return this.res.status(200).json(mCycle);
   }
+
+  public async update(id: string, mCycle: IMotorcycle) {
+    const updatedMotorcycle = await this.service.update(id, mCycle);
+    if (!updatedMotorcycle) return this.res.status(404).json({ message: 'Motorcycle not found' });
+    if (!updatedMotorcycle.status) updatedMotorcycle.status = false;
+    return this.res.status(200).json({ id, ...updatedMotorcycle });
+  }
 }
 
 export default MotorcyclesControllers;

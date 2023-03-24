@@ -21,4 +21,10 @@ motorcyclesRoutes.get(
     .findById(req.params.id), 
 );
 
+motorcyclesRoutes.put(
+  '/motorcycles/:id', 
+  (req, res, next) => isValidId(req, res, next),
+  (req, res, next) => new MotorcyclesControllers(req, res, next).update(req.params.id, req.body),
+);
+
 export default motorcyclesRoutes;
