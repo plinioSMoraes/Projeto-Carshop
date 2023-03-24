@@ -30,7 +30,7 @@ class CarsServices {
 
   public async update(id: string, car: ICar) {
     const model = new CarsModels();
-    const updatedCar = await model.update(car, id);
+    const updatedCar = await model.update(id, car);
     return updatedCar;
   }
 }

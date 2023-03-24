@@ -1,12 +1,10 @@
-import { Model, model, models, Schema } from 'mongoose';
+import { Schema } from 'mongoose';
 import ICar from '../Interfaces/ICar';
-  
-class CarsModels {
-  private schema: Schema;
-  private model: Model<ICar>;
-  
+import AbstractODM from './AbstractODM';
+
+class CarsModels extends AbstractODM<ICar> {  
   constructor() {
-    this.schema = new Schema<ICar>({
+    const schema = new Schema<ICar>({
       model: { type: String, required: true },
       year: { type: Number, required: true },
       color: { type: String, required: true },
@@ -15,7 +13,7 @@ class CarsModels {
       doorsQty: { type: Number, required: true },
       seatsQty: { type: Number, required: true },
     });
-    this.model = models.Cars || model('Cars', this.schema);
+    super(schema, 'Cars');
   }
   
   public async create(car: ICar): Promise<ICar> {
@@ -50,8 +48,8 @@ class CarsModels {
     });
     return car;
   }
-  public async update(car: ICar, id: string): Promise<ICar | null> {
-    const updatedCar = await this.model.findByIdAndUpdate({ _id: id }, { ...car }, { new: true })
+  public async update(_id: string, car: ICar): Promise<ICar | null> {
+    const updatedCar = await this.model.findByIdAndUpdate({ _id }, { ...car }, { new: true })
       .lean();
     return updatedCar;
   }
