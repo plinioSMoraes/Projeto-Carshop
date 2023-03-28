@@ -21,33 +21,26 @@ class MotorcyclesModels extends AbstractODM<IMotorcycle> {
   }
 
   public async findAll() {
-    const allMotorcycles = await this.model.find().select(
-      {
-        id: '$_id', 
-        model: '$model',
-        year: '$year',
-        color: '$color',
-        status: '$status',
-        buyValue: '$buyValue',
-        category: '$category',
-        engineCapacity: '$engineCapacity',
-      },
-    );
-    return allMotorcycles;
+    const allMotorcycles = await this.model.find();
+    const modifiedMCycles = allMotorcycles.map((mCycle) => {
+      if (!mCycle) {
+        return mCycle;
+      }
+      const res = JSON.parse(JSON.stringify(mCycle));
+      res.id = mCycle.id;
+      return res;
+    });
+    return modifiedMCycles;
   }
 
   public async findById(id: string) {
-    const mCycle = await this.model.findById(id).select({
-      id: '$_id', 
-      model: '$model',
-      year: '$year',
-      color: '$color',
-      status: '$status',
-      buyValue: '$buyValue',
-      category: '$category',
-      engineCapacity: '$engineCapacity',
-    });
-    return mCycle;
+    const mCycle = await this.model.findOne({ _id: id });
+    if (!mCycle) {
+      return mCycle;
+    }
+    const res = JSON.parse(JSON.stringify(mCycle));
+    res.id = id;
+    return res;
   }
 
   public async update(_id: string, mCycle: IMotorcycle): Promise<IMotorcycle | null> {

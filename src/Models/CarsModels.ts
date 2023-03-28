@@ -21,33 +21,28 @@ class CarsModels extends AbstractODM<ICar> {
   }
 
   public async findAll() {
-    const allCars = await this.model.find().select(
-      {
-        id: '$_id', 
-        model: '$model',
-        year: '$year',
-        color: '$color',
-        status: '$status',
-        buyValue: '$buyValue',
-        doorsQty: '$doorsQty',
-        seatsQty: '$seatsQty',
-      },
-    );
-    return allCars;
-  }
-  public async findById(id: string) {
-    const car = await this.model.findById(id).select({
-      id: '$_id', 
-      model: '$model',
-      year: '$year',
-      color: '$color',
-      status: '$status',
-      buyValue: '$buyValue',
-      doorsQty: '$doorsQty',
-      seatsQty: '$seatsQty',
+    const allCars = await this.model.find();
+    const modifiedCars = allCars.map((car) => {
+      if (!car) {
+        return car;
+      }
+      const res = JSON.parse(JSON.stringify(car));
+      res.id = car.id;
+      return res;
     });
-    return car;
+    return modifiedCars;
   }
+
+  public async findById(id: string) {
+    const car = await this.model.findOne({ _id: id });
+    if (!car) {
+      return car;
+    }
+    const res = JSON.parse(JSON.stringify(car));
+    res.id = id;
+    return res;
+  }
+  
   public async update(_id: string, car: ICar): Promise<ICar | null> {
     const updatedCar = await this.model.findByIdAndUpdate({ _id }, { ...car }, { new: true })
       .lean();
