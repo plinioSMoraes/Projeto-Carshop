@@ -9,11 +9,10 @@
     <a href="https://github.com/plinioSMoraes/Projeto-Carshop"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/ShaanCoding/ReadME-Generator">View Demo</a>
     .
-    <a href="https://github.com/ShaanCoding/ReadME-Generator/issues">Report Bug</a>
+    <a href="https://github.com/plinioSMoraes/Projeto-Carshop/issues">Report Bug</a>
     .
-    <a href="https://github.com/ShaanCoding/ReadME-Generator/issues">Request Feature</a>
+    <a href="https://github.com/plinioSMoraes/Projeto-Carshop/issues">Request Feature</a>
   </p>
 </p>
 
